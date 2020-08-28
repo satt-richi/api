@@ -11,6 +11,7 @@ jobs:
           RAILS_ENV: test
     steps:
       - checkout
+      - run: gem install bundler:2.1.4
       - run: bundle config set path 'vendor/bundle'
       - run: bundle install --jobs=4
       - run: bundle exec rails db:create
