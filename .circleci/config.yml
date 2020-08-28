@@ -16,4 +16,4 @@ jobs:
       - run: bundle install --jobs=4
       - run: bundle exec rails db:create
       - run: bundle exec rails db:migrate
-      - run: bundle exec test
+      - run: ~/project/bin/rake db test
