@@ -15,9 +15,3 @@ jobs:
       - run: bundle exec rails db:create
       - run: bundle exec rails db:migrate
       - run: bundle exec test
-
-workflows:
-  version: 2.1
-  build_and_test:
-    jobs:
-      - test:
