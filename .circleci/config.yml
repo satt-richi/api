@@ -7,7 +7,7 @@ executors:
   dafault:
     working_directory: ~/api
     docker:
-      - image: 'circleci/ruby:2.6.5-buster
+      - image: circleci/ruby:2.6.5-buster
       environment:
         BUNDLE_PATH: vendor/bundle
         RAILS_ENV: test
