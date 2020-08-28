@@ -2,24 +2,16 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.0
 
-executors:
-  dafault:
-    working_directory: ~/api
+jobs:
+  test:
     docker:
       - image: circleci/ruby:2.6.5-buster
         environment:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
-jobs:
-  build:
-    executor: default
     steps:
-      - checkout
-      - bundle-install
-  test:
-    executor: default
-    steps:
-      - preparate
+      - run: bundle config set path 'vendor/bundle'
+      - run: bundle install --jobs=4
       - run: bundle exec rails db:create
       - run: bundle exec rails db:migrate
       - run: bundle exec test
@@ -28,23 +20,4 @@ workflows:
   version: 2.1
   build_and_test:
     jobs:
-      - build
       - test:
-          requires:
-            - build
-commands:
-  bundle-install:
-    steps:
-      - ruby/bundle-install:
-          bundle_clean: true
-          bundle_extra_args: ''
-          bundle_gemfile: Gemfile
-          bundle_jobs: 4
-          bundle_path: vendor/bundle
-          bundle_retry: 3
-          cache_key_prefix: v1-bundle-dependencies
-          restore_bundled_with: true
-  preparate:
-    steps:
-      - checkout
-      - bundle-install
