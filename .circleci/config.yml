@@ -10,6 +10,7 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
     steps:
+      - checkout
       - run: bundle config set path 'vendor/bundle'
       - run: bundle install --jobs=4
       - run: bundle exec rails db:create
