@@ -1,6 +1,5 @@
 version: 2.1
 orbs:
-  node: circleci/node@2
   ruby: circleci/ruby@1.1.0
 
 executors:
@@ -26,6 +25,7 @@ jobs:
       - run: bundle exec test
 
 workflows:
+  version: 2.1
   build_and_test:
     jobs:
       - build
@@ -35,7 +35,7 @@ workflows:
 commands:
   bundle-install:
     steps:
-      - ruby-orbs/bundle-install:
+      - ruby/bundle-install:
           bundle_clean: true
           bundle_extra_args: ''
           bundle_gemfile: Gemfile
