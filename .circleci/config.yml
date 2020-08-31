@@ -5,9 +5,12 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.5-buster
+      - image: 'cimg/base:stable'
     steps:
-      - ruby/version
+      - checkout
+      - ruby/install
+        version: '2.7'
+      - run: echo "ruby has been installed"
     
 
 # jobs:
