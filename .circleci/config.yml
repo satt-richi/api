@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - checkout
+      # - checkout
       - run: sudo apt-get update
       - run: sudo apt-get install -y ruby
       - run: echo "ruby has been installed"
