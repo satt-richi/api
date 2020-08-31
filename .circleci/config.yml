@@ -7,11 +7,14 @@ jobs:
     executor: dk_api
     steps:
       - checkout
+      - run: gem install bundler:2.1.4
+      - run: bundle config set path 'vendor/bundle'
       - run: bundle install --jobs=4
       - save_cache:
         key: dependency-cache-{{ checksum "Gemfile.lock" }}
         paths:
           - vendor
+
   test:
     executor: dk_api
     steps:
@@ -20,7 +23,7 @@ jobs:
         key: dependency-cache-{{ checksum "Gemfile.lock" }} 
       - run: bundle exec rails db:create
       - run: bundle exec rails db:migrate
-      - run: bundle exec test
+      - run: ~/project/bin/rake db test
 
 executors:
   dk_api:
@@ -30,6 +33,14 @@ executors:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
 
+workflow:
+  version: 2.1
+  build_test:
+    jobs:
+      - build
+      - test:
+        requires:
+          - build
 
 
 # version: 2.1
