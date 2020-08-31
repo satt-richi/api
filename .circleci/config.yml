@@ -1,20 +1,18 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
-
+  
 jobs:
   build:
     executor: dk_api
     steps:
       - checkout
       - run: gem install bundler:2.1.4
-      - run: bundle config set path 'vendor/bundle'
       - run: bundle install --jobs=4
       - save_cache:
           key: dependency-cache-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor
-
   test:
     executor: dk_api
     steps:
@@ -31,6 +29,7 @@ executors:
     docker:
       - image: circleci/ruby:2.6.5-buster
         environment:
+          BUNDLE_JOBS: "4"
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
 
@@ -42,24 +41,3 @@ workflows:
       - test:
           requires:
             - build
-
-
-# version: 2.1
-# orbs:
-#   ruby: circleci/ruby@1.1.0
-
-# jobs:
-#   build:
-#     docker:
-#       - image: circleci/ruby:2.6.5-buster
-#         environment:
-#           BUNDLE_PATH: vendor/bundle
-#           RAILS_ENV: test
-#     steps:
-#       - checkout
-#       - run: gem install bundler:2.1.4
-#       - run: bundle config set path 'vendor/bundle'
-#       - run: bundle install --jobs=4
-#       - run: bundle exec rails db:create
-#       - run: bundle exec rails db:migrate
-#       - run: bundle exec test
