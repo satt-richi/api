@@ -1,19 +1,40 @@
 version: 2.1
-
 orbs:
   ruby: circleci/ruby@1.1.1
 
 jobs:
   build:
+    executor: dk_api
+    steps:
+      - checkout
+      - run: bundle install --jobs=4
+      - save_cache:
+        key: dependency-cache-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor
+  test:
+    executor: dk_api
+    steps:
+      - checkout
+      - restore_cache:
+        key: dependency-cache-{{ checksum "Gemfile.lock" }} 
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:migrate
+      - run: bundle exec test
+
+executors:
+  dk_api:
     docker:
       - image: circleci/ruby:2.6.5-buster
         environment:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
-    steps:
-      # - checkout
-      - run: ruby -v
-    
+
+
+
+# version: 2.1
+# orbs:
+#   ruby: circleci/ruby@1.1.0
 
 # jobs:
 #   build:
@@ -29,9 +50,4 @@ jobs:
 #       - run: bundle install --jobs=4
 #       - run: bundle exec rails db:create
 #       - run: bundle exec rails db:migrate
-#       - run: ~/project/bin/rake db test
-
-# workflows:
-#   pipeline:
-#     jobs:
-#     - ruby/version
+#       - run: bundle exec test
