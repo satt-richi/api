@@ -6,12 +6,12 @@ orbs:
 jobs:
   build:
     docker:
-      - image: 'cimg/base:stable'
+      - image: circleci/ruby:2.6.5-buster
+        environment:
+        BUNDLE_PATH: vendor/bundle
+        RAILS_ENV: test
     steps:
       # - checkout
-      - ruby/install:
-          version: '2.7'
-      - run: echo "ruby has been installed"
       - run: ruby -v
     
 
