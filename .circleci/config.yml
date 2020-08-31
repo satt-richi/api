@@ -2,6 +2,14 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
 
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6.5-buster
+    steps:
+      - ruby/version
+    
+
 # jobs:
 #   build:
 #     docker:
@@ -18,8 +26,7 @@ orbs:
 #       - run: bundle exec rails db:migrate
 #       - run: ~/project/bin/rake db test
 
-workflows:
-  version: 2.1
-  pipeline:
-    jobs:
-    - ruby/ruby -v
+# workflows:
+#   pipeline:
+#     jobs:
+#     - ruby/version
