@@ -21,8 +21,8 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "Gemfile.lock" }} 
-      - run: bundle exec rails db:create
-      - run: bundle exec rails db:migrate
+      - run: ~/project/bin/rake db:create
+      - run: ~/project/bin/rake db:migrate
       - run: ~/project/bin/rake db test
 
 executors:
