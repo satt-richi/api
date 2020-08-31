@@ -8,8 +8,8 @@ jobs:
       - image: 'cimg/base:stable'
     steps:
       - checkout
-      - ruby/install
-        version: '2.7'
+      - ruby/install:
+          version: '2.6.5'
       - run: echo "ruby has been installed"
     
 
