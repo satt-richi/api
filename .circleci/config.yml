@@ -33,7 +33,7 @@ executors:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
 
-workflow:
+workflows:
   version: 2.1
   build_test:
     jobs:
