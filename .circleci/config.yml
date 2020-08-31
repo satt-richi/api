@@ -11,16 +11,16 @@ jobs:
       - run: bundle config set path 'vendor/bundle'
       - run: bundle install --jobs=4
       - save_cache:
-        key: dependency-cache-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor
+          key: dependency-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor
 
   test:
     executor: dk_api
     steps:
       - checkout
       - restore_cache:
-        key: dependency-cache-{{ checksum "Gemfile.lock" }} 
+          key: dependency-cache-{{ checksum "Gemfile.lock" }} 
       - run: bundle exec rails db:create
       - run: bundle exec rails db:migrate
       - run: ~/project/bin/rake db test
