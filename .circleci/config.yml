@@ -19,6 +19,7 @@ jobs:
     executor: dk_api
     steps:
       - checkout
+      - run: gem install bundler:2.1.4
       - restore_cache:
           key: dependency-cache-{{ checksum "Gemfile.lock" }} 
       - run: ~/project/bin/rake db:create
