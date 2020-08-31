@@ -9,6 +9,7 @@ jobs:
       - checkout
       - ruby/install:
           version: '2.6.5'
+      - run: apt-get install -y ruby
       - run: echo "ruby has been installed"
     
 
