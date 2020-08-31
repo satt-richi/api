@@ -17,3 +17,9 @@ orbs:
 #       - run: bundle exec rails db:create
 #       - run: bundle exec rails db:migrate
 #       - run: ~/project/bin/rake db test
+
+workflows:
+  version: 2.1
+  pipeline:
+    jobs:
+    - ruby/ruby -v
